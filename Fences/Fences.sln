@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FencingGame", "FencingGame\FencingGame.csproj", "{60F49151-1711-47A8-A6CC-2C064C76CB5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FencingGameTest", "FencingGameTest\FencingGameTest.csproj", "{9E4E16EE-C3E4-4836-8177-44AD543C6C88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FencingGame.UI", "FencingGame.UI\FencingGame.UI.csproj", "{2758874A-7D33-4A59-952E-8527BD4C81FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60F49151-1711-47A8-A6CC-2C064C76CB5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60F49151-1711-47A8-A6CC-2C064C76CB5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60F49151-1711-47A8-A6CC-2C064C76CB5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60F49151-1711-47A8-A6CC-2C064C76CB5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E4E16EE-C3E4-4836-8177-44AD543C6C88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E4E16EE-C3E4-4836-8177-44AD543C6C88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E4E16EE-C3E4-4836-8177-44AD543C6C88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E4E16EE-C3E4-4836-8177-44AD543C6C88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2758874A-7D33-4A59-952E-8527BD4C81FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2758874A-7D33-4A59-952E-8527BD4C81FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2758874A-7D33-4A59-952E-8527BD4C81FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2758874A-7D33-4A59-952E-8527BD4C81FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

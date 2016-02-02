@@ -1,0 +1,4 @@
+Fences/TestResults/
+*.suo
+bin/
+obj/
