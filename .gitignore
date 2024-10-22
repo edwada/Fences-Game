@@ -2,3 +2,7 @@ Fences/TestResults/
 *.suo
 bin/
 obj/
+/Fences/.vs/Fences
+/Fences/FencingGame.UI/.vs
+/Fences/FencingGame/.vs
+/Fences/FencingGameTest/.vs
