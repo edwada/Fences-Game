@@ -5,7 +5,7 @@ using FencesGame;
 using FencesGame.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FencesGameTest
+namespace FencesGame.Test
 {
     [TestClass]
     public class FencingGameTest

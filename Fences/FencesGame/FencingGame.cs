@@ -104,14 +104,26 @@ namespace FencesGame
             return false;
         }
 
-        private void FloodFill(TileState[,] Board, bool[,] marks, int line, int col)
+        /// <summary>
+        /// Given a board and a position, floods the board starting from the given position and following along the player's tiles. 
+        /// Stores the result on the marks array
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="marks"></param>
+        /// <param name="line"></param>
+        /// <param name="col"></param>
+        private void FloodFill(TileState[,] board, bool[,] marks, int line, int col)
         {
             marks[line, col] = true;
 
-            FloodIfEqualAndUnmarked(Board, marks, line+1, col, Board[line, col]);
-            FloodIfEqualAndUnmarked(Board, marks, line - 1, col, Board[line, col]);
-            FloodIfEqualAndUnmarked(Board, marks, line, col + 1, Board[line, col]);
-            FloodIfEqualAndUnmarked(Board, marks, line, col - 1, Board[line, col]);
+            // Flood right
+            FloodIfEqualAndUnmarked(board, marks, line+1, col, board[line, col]);
+            // Flood left
+            FloodIfEqualAndUnmarked(board, marks, line - 1, col, board[line, col]);
+            // Flood down
+            FloodIfEqualAndUnmarked(board, marks, line, col + 1, board[line, col]);
+            // Flood up
+            FloodIfEqualAndUnmarked(board, marks, line, col - 1, board[line, col]);
         }
 
         private void FloodIfEqualAndUnmarked(TileState[,] Board, bool[,] marks, int line, int col, TileState state)

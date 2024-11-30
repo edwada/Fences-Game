@@ -30,6 +30,8 @@ namespace FencesGame.UI
         {
             _game.Ended -= _game_Ended;
             _game = new Game(GameSize);
+            var aiMove = AI.GetNextMove(_game.Board, _game.Turn);
+            _game.Play(aiMove.Row, aiMove.Col);
             _game.Ended += _game_Ended;
             this.Invalidate();
         }
@@ -143,6 +145,9 @@ namespace FencesGame.UI
             try
             {
                 _game.Play(pos.Row, pos.Col);
+
+                var aiMove = AI.GetNextMove(_game.Board, _game.Turn);
+                _game.Play(aiMove.Row, aiMove.Col);
 
                 this.Invalidate();
             }

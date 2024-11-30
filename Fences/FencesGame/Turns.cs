@@ -11,4 +11,11 @@ namespace FencesGame
         Player1,
         Player2
     }
+
+    public static class TurnsExtensions
+    {
+        public static TileState ToTileState(this Turns turn) { 
+            return turn == Turns.Player1 ? TileState.Player1 : TileState.Player2;
+        }
+    }
 }
