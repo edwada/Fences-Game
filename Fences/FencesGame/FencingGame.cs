@@ -4,21 +4,32 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using FencesGame.Exceptions;
 
 namespace FencesGame
 {
     public class Game
     {
-        private bool _ended;
+        public bool HasEnded;
         public Board Board;
+        private Turns? _AIPlayer = null;
 
-        public Game(int size)
+        public Game(int size, bool VsAi)
         {
             Board = new Board(size);
             
             FillPlayer1Dots(Board.Tiles);
             FillPlayer2Dots(Board.Tiles);
+
+            if (VsAi)
+            {
+                _AIPlayer = Random.Shared.Next() % 2 == 0 ? Turns.Player1 : Turns.Player2;
+                if (_AIPlayer == Turns.Player1) {
+                    PlayAIMove();
+                }
+            }
+
         }
 
         public Turns Turn { get; set; }
@@ -44,18 +55,27 @@ namespace FencesGame
                 throw new InvalidMoveException();
 
             //Can't play if the game has already ended
-            if (this._ended)
+            if (HasEnded)
                 throw new InvalidMoveException();
 
 
             Board.Tiles[line, col] = this.Turn == Turns.Player1 ? TileState.Player1 : TileState.Player2;
             if (MoveWinsGame(line, col))
             {
-                this._ended = true;
+                HasEnded = true;
                 AnnounceWinner(this.Turn);
             }
 
             Turn = Turn == Turns.Player1 ? Turns.Player2 : Turns.Player1;
+
+            if (_AIPlayer != null && _AIPlayer == Turn && !HasEnded) {
+                PlayAIMove();    
+            }
+        }
+
+        private void PlayAIMove() {
+            var aiMove = AI.GetNextMove(Board, Turn);
+            Play(aiMove.Row, aiMove.Col);
         }
 
         private void AnnounceWinner(Turns turns)

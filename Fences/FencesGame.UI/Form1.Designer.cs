@@ -28,48 +28,99 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btRestart = new System.Windows.Forms.Button();
-            this.fencingGameControl1 = new FencesGame.UI.FencingGameControl();
-            this.SuspendLayout();
+            btPlayAgain = new Button();
+            fencingGameControl1 = new FencingGameControl();
+            gameChoice1 = new GameChoice();
+            btBackToMenu = new Button();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
-            // btRestart
+            // btPlayAgain
             // 
-            this.btRestart.Location = new System.Drawing.Point(13, 13);
-            this.btRestart.Name = "btRestart";
-            this.btRestart.Size = new System.Drawing.Size(75, 23);
-            this.btRestart.TabIndex = 1;
-            this.btRestart.Text = "Restart";
-            this.btRestart.UseVisualStyleBackColor = true;
-            this.btRestart.Click += new System.EventHandler(this.btRestart_Click);
+            btPlayAgain.Font = new Font("Comic Sans MS", 9F);
+            btPlayAgain.ForeColor = Color.DarkRed;
+            btPlayAgain.Location = new Point(0, 0);
+            btPlayAgain.Margin = new Padding(4, 3, 4, 3);
+            btPlayAgain.Name = "btPlayAgain";
+            btPlayAgain.Size = new Size(100, 27);
+            btPlayAgain.TabIndex = 1;
+            btPlayAgain.Text = "Play Again";
+            btPlayAgain.UseVisualStyleBackColor = true;
+            btPlayAgain.Visible = false;
+            btPlayAgain.Click += btPlayAgain_Click;
             // 
             // fencingGameControl1
             // 
-            this.fencingGameControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.fencingGameControl1.BackColor = System.Drawing.Color.White;
-            this.fencingGameControl1.Location = new System.Drawing.Point(12, 43);
-            this.fencingGameControl1.Name = "fencingGameControl1";
-            this.fencingGameControl1.Size = new System.Drawing.Size(371, 273);
-            this.fencingGameControl1.TabIndex = 0;
+            fencingGameControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            fencingGameControl1.BackColor = Color.Transparent;
+            fencingGameControl1.Location = new Point(14, 50);
+            fencingGameControl1.Margin = new Padding(5, 3, 5, 3);
+            fencingGameControl1.Name = "fencingGameControl1";
+            fencingGameControl1.Size = new Size(433, 315);
+            fencingGameControl1.TabIndex = 0;
+            fencingGameControl1.Visible = false;
+            fencingGameControl1.GameEnded += fencingGameControl1_GameEnded;
+            // 
+            // gameChoice1
+            // 
+            gameChoice1.BackgroundImage = Properties.Resources.grass_low_res_darker;
+            gameChoice1.Dock = DockStyle.Fill;
+            gameChoice1.Location = new Point(0, 0);
+            gameChoice1.Name = "gameChoice1";
+            gameChoice1.Size = new Size(461, 378);
+            gameChoice1.TabIndex = 2;
+            gameChoice1.playVsAI += gameChoice1_playVsAI;
+            gameChoice1.playVsHuman += gameChoice1_playVsHuman;
+            // 
+            // btBackToMenu
+            // 
+            btBackToMenu.Font = new Font("Comic Sans MS", 9F);
+            btBackToMenu.ForeColor = Color.DarkRed;
+            btBackToMenu.Location = new Point(108, 0);
+            btBackToMenu.Margin = new Padding(4, 3, 4, 3);
+            btBackToMenu.Name = "btBackToMenu";
+            btBackToMenu.Size = new Size(100, 27);
+            btBackToMenu.TabIndex = 3;
+            btBackToMenu.Text = "Back To Menu";
+            btBackToMenu.UseVisualStyleBackColor = true;
+            btBackToMenu.Visible = false;
+            btBackToMenu.Click += btBackToMenu_Click;
+            // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Top;
+            panel1.BackColor = Color.Transparent;
+            panel1.Controls.Add(btBackToMenu);
+            panel1.Controls.Add(btPlayAgain);
+            panel1.Location = new Point(126, 18);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(209, 26);
+            panel1.TabIndex = 4;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(395, 328);
-            this.Controls.Add(this.btRestart);
-            this.Controls.Add(this.fencingGameControl1);
-            this.Name = "Form1";
-            this.Text = "Fences";
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.grass_low_res_darker;
+            ClientSize = new Size(461, 378);
+            Controls.Add(panel1);
+            Controls.Add(fencingGameControl1);
+            Controls.Add(gameChoice1);
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "Form1";
+            Text = "Fences";
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
 
         private FencingGameControl fencingGameControl1;
-        private System.Windows.Forms.Button btRestart;
+        private System.Windows.Forms.Button btPlayAgain;
+        private GameChoice gameChoice1;
+        private Button btBackToMenu;
+        private Panel panel1;
     }
 }
 

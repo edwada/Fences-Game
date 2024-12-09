@@ -12,7 +12,7 @@ namespace FencesGame.Test
         [TestMethod]
         public void CountMovesToFinishTest()
         {
-            Game game = new Game(5);
+            Game game = new Game(5, false);
             AssertMovesLeft(game, 4, 4);
 
             game.Play(7, 1);

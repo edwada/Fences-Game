@@ -9,13 +9,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FencesGame.Exceptions;
+using System.Media;
 
 namespace FencesGame.UI
 {
     public partial class FencingGameControl : UserControl
     {
         private const int GameSize = 5;
-        private Game _game = new Game(GameSize);
+        private Game _game = new Game(GameSize, false);
+        public event EventHandler GameEnded;
+        private SoundPlayer _moveSound = new SoundPlayer("fence-move.wav");
+        private const int _dotRadius = 9;
+        private const int _lineThickness = 6;
 
         public FencingGameControl()
         {
@@ -26,12 +31,10 @@ namespace FencesGame.UI
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
 
-        public void Restart()
+        public void Restart(bool vsAI)
         {
             _game.Ended -= _game_Ended;
-            _game = new Game(GameSize);
-            var aiMove = AI.GetNextMove(_game.Board, _game.Turn);
-            _game.Play(aiMove.Row, aiMove.Col);
+            _game = new Game(GameSize, vsAI);
             _game.Ended += _game_Ended;
             this.Invalidate();
         }
@@ -41,6 +44,7 @@ namespace FencesGame.UI
             string color = winner == Turns.Player1 ? "Blue" : "Red";
 
             MessageBox.Show(color + " player won!", "Winner", MessageBoxButtons.OK);
+            GameEnded(this, new EventArgs());
         }
 
         private void FencingGameControl_Paint(object sender, PaintEventArgs e)
@@ -64,34 +68,38 @@ namespace FencesGame.UI
             Point start, end, middle;
 
             middle = BoardPositionToPoint(c.Row, c.Collumn);
-            int tileSize = GetTileSize();
+            int tileSize = GetTileSize() - _dotRadius + 1;
 
+            Rectangle position;
+            Image texture;
             if (c.Direction == Orientation.Vertical)
             {
-                start = new Point(middle.X, middle.Y - tileSize);
-                end = new Point(middle.X, middle.Y + tileSize);
+                position = new Rectangle(middle.X - _lineThickness / 2, middle.Y - tileSize, _lineThickness, 2 * tileSize);
+                texture = c.Color == TileState.Player1 ? Image.FromFile("./Resources/blue vertical connection.gif") : Image.FromFile("./Resources/red vertical connection.gif");
             }
             else
             {
-                start = new Point(middle.X - tileSize, middle.Y);
-                end = new Point(middle.X + tileSize, middle.Y);
+                position = new Rectangle(middle.X - tileSize, middle.Y - _lineThickness / 2, 2 * tileSize, _lineThickness);
+                texture = c.Color == TileState.Player1 ? Image.FromFile("./Resources/blue horizontal connection.gif") : Image.FromFile("./Resources/red horizontal connection.gif");
             }
 
-            Pen pen = c.Color == TileState.Player1 ? new Pen(Color.Blue) : new Pen(Color.Red);
-            pen.Width = 3;
+            
+            //e.Graphics.DrawRectangle(new Pen(Brushes.Blue), position);
+            e.Graphics.DrawImage(texture, position.X, position.Y, position.Width, position.Height);
 
-            e.Graphics.DrawLine(pen, start, end);
+            
         }
 
+        
         private void DrawRedDots(PaintEventArgs e)
         {
             _game.Board.EachPlayer2Dot((i, j) =>
             {
                 Point center = BoardPositionToPoint(i, j);
 
-                Rectangle rect = new Rectangle(center.X - 5, center.Y - 5, 10, 10);
+                Rectangle rect = new Rectangle(center.X - _dotRadius, center.Y - _dotRadius, 2 * _dotRadius, 2 * _dotRadius);
 
-                e.Graphics.FillEllipse(Brushes.Red, rect);
+                e.Graphics.DrawImage(Image.FromFile("./Resources/Red ball.gif"), rect);
             });
         }
 
@@ -101,9 +109,9 @@ namespace FencesGame.UI
             {
                 Point center = BoardPositionToPoint(i, j);
 
-                Rectangle rect = new Rectangle(center.X - 5, center.Y - 5, 10, 10);
+                Rectangle rect = new Rectangle(center.X - _dotRadius, center.Y - _dotRadius, 2 * _dotRadius, 2 * _dotRadius);
 
-                e.Graphics.FillEllipse(Brushes.Blue, rect);
+                e.Graphics.DrawImage(Image.FromFile("./Resources/Blue ball.gif"), rect);
             });
         }
 
@@ -146,8 +154,8 @@ namespace FencesGame.UI
             {
                 _game.Play(pos.Row, pos.Col);
 
-                var aiMove = AI.GetNextMove(_game.Board, _game.Turn);
-                _game.Play(aiMove.Row, aiMove.Col);
+                if (!_game.HasEnded)
+                    _moveSound.Play();
 
                 this.Invalidate();
             }
